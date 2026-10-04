@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MarketLens · Market workspace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header><a class="brand" href="/">▥ <b>marketlens</b><span>/</span><small>Market workspace</small></a><button
+            id="setup">Connection details</button></header>
+    <main>
+        <div class="pagehead">
+            <div>
+                <p class="eyebrow">YOUR MARKET, IN FOCUS</p>
+                <h1>Market overview</h1>
+            </div>
+            <div class="status"><span id="mode">DEMO MODE</span><small id="updated">Sample data · not market
+                    prices</small></div>
+        </div>
+        <div class="notice" id="notice">You're exploring sample market data. Run the Python app locally to connect your
+            Angel One account.</div>
+        <div id="error" role="alert" hidden></div>
+        <div id="cards" class="cards"></div>
+        <div class="workspace">
+            <section class="chartpanel">
+                <div class="stockhead">
+                    <div>
+                        <div class="stocktitle">
+                            <h2 id="symbol">RELIANCE</h2><span>NSE</span>
+                        </div>
+                        <p id="company">Reliance Industries</p>
+                    </div>
+                    <div class="priceblock"><strong id="price"></strong><span id="change"></span></div>
+                </div>
+                <div class="toolbar">
+                    <div id="intervals" class="segments"><button data-i="1m">1m</button><button data-i="5m"
+                            class="active">5m</button><button data-i="15m">15m</button><button
+                            data-i="1h">1h</button><button data-i="1d">1D</button></div>
+                    <div class="segments"><button id="candle" class="active">Candles</button><button
+                            id="line">Line</button></div>
+                </div>
+                <div id="ohlc" class="ohlc"></div>
+                <div class="chartwrap"><svg id="chart" viewBox="0 0 920 400" role="img"
+                        aria-label="Stock price and volume chart"></svg>
+                    <div id="tooltip" hidden></div>
+                </div>
+                <div class="chartfoot"><span>Price in INR · Time in IST</span><span id="chartsource">SAMPLE DATA</span>
+                </div>
+            </section>
+            <aside>
+                <div class="asidehead">
+                    <h2>Watchlist</h2><span>6 stocks</span>
+                </div><label class="search"><span>⌕</span><input id="search" placeholder="Filter stocks"
+                        aria-label="Filter watchlist"></label>
+                <div class="tablehead"><span>SYMBOL</span><span>PRICE / CHANGE</span></div>
+                <div id="watchlist"></div>
+                <div class="asidefoot">NSE equities<span>Quotes refresh every 5 seconds</span></div>
+            </aside>
+        </div>
+        <section class="summary">
+            <div><span>SESSION OPEN</span><strong id="open">—</strong></div>
+            <div><span>PERIOD HIGH</span><strong id="high">—</strong></div>
+            <div><span>PERIOD LOW</span><strong id="low">—</strong></div>
+            <div><span>PERIOD VOLUME</span><strong id="volume">—</strong></div>
+        </section>
+        <footer><span>MarketLens <span class="muted">/ Powered by Angel One SmartAPI in live
+                    mode</span></span><span>Read-only market workspace</span></footer>
+    </main>
+    <dialog id="dialog">
+        <div class="dialoghead">
+            <h2>Connect your market data</h2><button id="close" aria-label="Close">✕</button>
+        </div>
+        <p>This preview displays sample data. Your Python app serves this same interface with Angel One prices.</p>
+        <ol>
+            <li>Download and extract the source project.</li>
+            <li>Install the requirements in a Python virtual environment.</li>
+            <li>Copy <code>.env.example</code> to <code>.env</code>, set <code>MARKET_MODE=live</code>, and add your API
+                key, client code, PIN and TOTP secret.</li>
+            <li>Run the command below, then open <b>http://127.0.0.1:8000</b>.</li>
+        </ol>
+        <pre>python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000</pre>
+        <p class="muted">Credentials stay on your Python server. Live prices refresh every five seconds; historical
+            candles refresh every thirty seconds.</p>
+    </dialog>
+    <script src="app.js"></script>
+</body>
+
+</html>
